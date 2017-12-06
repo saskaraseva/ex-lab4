@@ -11,6 +11,11 @@ path = None
 # Здесь необходимо в переменную path получить
 # путь до файла, который был передан при запуске
 
+if len(sys.argv) < 2:
+    path = input('Введите имя файла: ')
+else:
+    path = sys.argv[1]
+
 with open(path) as f:
     data = json.load(f)
 
@@ -23,22 +28,23 @@ with open(path) as f:
 
 @print_result
 def f1(arg):
-    raise NotImplemented
+    return list(unique(sorted(field(arg, 'job-name'), key=str.casefold), ignore_case=True))
 
 
 @print_result
 def f2(arg):
-    raise NotImplemented
+    return list(filter(lambda x: x.casefold().startswith('программист'), arg))
 
 
 @print_result
 def f3(arg):
-    raise NotImplemented
+    return list(map(lambda x: x + ' с опытом Python', arg))
 
 
 @print_result
 def f4(arg):
-    raise NotImplemented
+    salaries = list(gen_random(100000, 200001, len(arg)))
+    return list(map(lambda x: x[0] + ', зарплата ' + str(x[1]) + ' руб', zip(arg, salaries)))
 
 
 with timer():

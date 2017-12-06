@@ -35,3 +35,24 @@
 # test_4
 # 1
 # 2
+
+
+def print_result(func):
+    def dec_func(*args, **kwargs):
+        res = func(*args, **kwargs)
+        print(func.__name__)
+
+        if type (res) == list:
+            for x in res:
+                print(x)
+
+        elif type(res) == dict:
+            for key, val in res.items():
+                print('{} = {}'.format(key, val))
+
+        else:
+            print(res)
+
+        return res
+
+    return dec_func
